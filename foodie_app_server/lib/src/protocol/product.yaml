@@ -1,0 +1,36 @@
+class: Product
+
+table: products
+
+fields:
+  name: String
+  phone: String
+  email: String
+  logo: String?
+  latitude: double
+  longitude: double
+  address: Address
+  minimumOrder: double
+ 
+  freeDelivery: double
+  coverPhoto: String?
+  delivery: bool
+  takeAway: bool
+  
+  avgRating: double
+  
+  ratingCount: double
+  selfDeliverySystem: bool
+  
+  deliveryCharge: double
+  packagingCharge: double
+  open: int
+  active: bool
+  deliveryTime: String
+  # List<int> categoryIds;
+  veg: int
+  nonVeg: int
+  discount: Discount
+  
+
+  # List<Schedules> schedules;

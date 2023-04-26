@@ -1,0 +1,19 @@
+class: Discount
+
+table: discount
+
+fields:
+   
+  startDate: DateTime
+  endDate: DateTime
+  startTime: DateTime
+  endTime: DateTime
+  minPurchase: double
+  maxDiscount: double
+  discount: double
+  discountType: String
+  
+  createdAt: DateTime
+  updatedAt: DateTime
+
+  
