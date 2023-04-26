@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 8090,
+            "driver": "PostgreSQL",
+            "name": "food_app",
+            "username": "postgres",
+            "database": "foodie_app",
+            "password": "Dm7WYzCPoiB-YoO5Xq0tmit2R5jcQEq5"
+        }
+    ]
+}

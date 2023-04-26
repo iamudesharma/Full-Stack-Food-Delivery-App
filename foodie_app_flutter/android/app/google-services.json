@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "554110866673",
+    "project_id": "food-fullstack-app",
+    "storage_bucket": "food-fullstack-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554110866673:android:d63bdada46c573525b0550",
+        "android_client_info": {
+          "package_name": "com.example.foodie_app_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554110866673-iirhev6l8pvs5pgds2eb73u0biht70jd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI52eCcIQ2-Af0TjDj4Gk5F1LmCEc-Q8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554110866673-iirhev6l8pvs5pgds2eb73u0biht70jd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
