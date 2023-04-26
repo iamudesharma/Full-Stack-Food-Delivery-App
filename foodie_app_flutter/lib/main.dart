@@ -1,5 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:foodie_app_client/foodie_app_client.dart';
 import 'package:flutter/material.dart';
+import 'package:serverpod_auth_firebase_flutter/serverpod_auth_firebase_flutter.dart';
+import 'package:serverpod_auth_firebase_flutter/src/signin_button.dart';
+
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 // Sets up a singleton client object that can be used to talk to the server from
@@ -7,10 +13,22 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 // The client is set up to connect to a Serverpod running on a local server on
 // the default port. You will need to modify this to connect to staging or
 // production servers.
-var client = Client('http://localhost:8080/')
+
+var client = Client('http://10.0.2.2:8080/',
+    authenticationKeyManager: FlutterAuthenticationKeyManager())
   ..connectivityMonitor = FlutterConnectivityMonitor();
 
-void main() {
+late SessionManager sessionManager;
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  sessionManager = SessionManager(
+    caller: client.modules.auth,
+  );
+
+  await Firebase.initializeApp();
+  await sessionManager.initialize();
+
   runApp(const MyApp());
 }
 
@@ -41,26 +59,6 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   // These fields hold the last result or error message that we've received from
   // the server or null if no result exists yet.
-  String? _resultMessage;
-  String? _errorMessage;
-
-  final _textEditingController = TextEditingController();
-
-  // Calls the `hello` method of the `example` endpoint. Will set either the
-  // `_resultMessage` or `_errorMessage` field, depending on if the call
-  // is successful.
-  void _callHello() async {
-    try {
-      final result = await client.example.hello(_textEditingController.text);
-      setState(() {
-        _resultMessage = result;
-      });
-    } catch (e) {
-      setState(() {
-        _errorMessage = '$e';
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,66 +68,19 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: TextField(
-                controller: _textEditingController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter your name',
-                ),
+        child: sessionManager.isSignedIn
+            ? Text("User logged in")
+            : Column(
+                children: [
+                  SignInWithFirebaseButton(
+                    caller: client.modules.auth,
+                    onSignedIn: () {
+                      print('Signed in!');
+                    },
+                    authProviders: [EmailAuthProvider(), PhoneAuthProvider()],
+                  )
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: ElevatedButton(
-                onPressed: _callHello,
-                child: const Text('Send to Server'),
-              ),
-            ),
-            _ResultDisplay(
-              resultMessage: _resultMessage,
-              errorMessage: _errorMessage,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// _ResultDisplays shows the result of the call. Either the returned result from
-// the `example.hello` endpoint method or an error message.
-class _ResultDisplay extends StatelessWidget {
-  final String? resultMessage;
-  final String? errorMessage;
-
-  const _ResultDisplay({
-    this.resultMessage,
-    this.errorMessage,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    String text;
-    Color backgroundColor;
-    if (errorMessage != null) {
-      backgroundColor = Colors.red[300]!;
-      text = errorMessage!;
-    } else if (resultMessage != null) {
-      backgroundColor = Colors.green[300]!;
-      text = resultMessage!;
-    } else {
-      backgroundColor = Colors.grey[300]!;
-      text = 'No server response yet.';
-    }
-
-    return Container(
-      height: 50,
-      color: backgroundColor,
-      child: Center(
-        child: Text(text),
       ),
     );
   }
