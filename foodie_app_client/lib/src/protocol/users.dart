@@ -7,13 +7,16 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
+import 'package:serverpod_auth_client/module.dart' as _i2;
+import 'protocol.dart' as _i3;
 
 class User extends _i1.SerializableEntity {
   User({
     this.id,
     required this.name,
-    required this.email,
     required this.phone,
+    required this.userInfo,
+    this.address,
   });
 
   factory User.fromJson(
@@ -23,9 +26,11 @@ class User extends _i1.SerializableEntity {
     return User(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      email:
-          serializationManager.deserialize<String>(jsonSerialization['email']),
       phone: serializationManager.deserialize<int>(jsonSerialization['phone']),
+      userInfo: serializationManager
+          .deserialize<_i2.UserInfo>(jsonSerialization['userInfo']),
+      address: serializationManager
+          .deserialize<List<_i3.Address>?>(jsonSerialization['address']),
     );
   }
 
@@ -36,17 +41,20 @@ class User extends _i1.SerializableEntity {
 
   String name;
 
-  String email;
-
   int phone;
+
+  _i2.UserInfo userInfo;
+
+  List<_i3.Address>? address;
 
   @override
   Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
-      'email': email,
       'phone': phone,
+      'userInfo': userInfo,
+      'address': address,
     };
   }
 }

@@ -80,8 +80,9 @@ ALTER TABLE ONLY "products"
 CREATE TABLE "users" (
   "id" serial,
   "name" text NOT NULL,
-  "email" text NOT NULL,
-  "phone" integer NOT NULL
+  "phone" integer NOT NULL,
+  "userInfo" json NOT NULL,
+  "address" json
 );
 
 ALTER TABLE ONLY "users"

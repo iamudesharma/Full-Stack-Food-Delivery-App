@@ -7,13 +7,16 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
+import 'package:serverpod_auth_server/module.dart' as _i2;
+import 'protocol.dart' as _i3;
 
 class User extends _i1.TableRow {
   User({
     int? id,
     required this.name,
-    required this.email,
     required this.phone,
+    required this.userInfo,
+    this.address,
   }) : super(id);
 
   factory User.fromJson(
@@ -23,9 +26,11 @@ class User extends _i1.TableRow {
     return User(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      email:
-          serializationManager.deserialize<String>(jsonSerialization['email']),
       phone: serializationManager.deserialize<int>(jsonSerialization['phone']),
+      userInfo: serializationManager
+          .deserialize<_i2.UserInfo>(jsonSerialization['userInfo']),
+      address: serializationManager
+          .deserialize<List<_i3.Address>?>(jsonSerialization['address']),
     );
   }
 
@@ -33,9 +38,11 @@ class User extends _i1.TableRow {
 
   String name;
 
-  String email;
-
   int phone;
+
+  _i2.UserInfo userInfo;
+
+  List<_i3.Address>? address;
 
   @override
   String get tableName => 'users';
@@ -44,8 +51,9 @@ class User extends _i1.TableRow {
     return {
       'id': id,
       'name': name,
-      'email': email,
       'phone': phone,
+      'userInfo': userInfo,
+      'address': address,
     };
   }
 
@@ -54,8 +62,9 @@ class User extends _i1.TableRow {
     return {
       'id': id,
       'name': name,
-      'email': email,
       'phone': phone,
+      'userInfo': userInfo,
+      'address': address,
     };
   }
 
@@ -64,8 +73,9 @@ class User extends _i1.TableRow {
     return {
       'id': id,
       'name': name,
-      'email': email,
       'phone': phone,
+      'userInfo': userInfo,
+      'address': address,
     };
   }
 
@@ -81,11 +91,14 @@ class User extends _i1.TableRow {
       case 'name':
         name = value;
         return;
-      case 'email':
-        email = value;
-        return;
       case 'phone':
         phone = value;
+        return;
+      case 'userInfo':
+        userInfo = value;
+        return;
+      case 'address':
+        address = value;
         return;
       default:
         throw UnimplementedError();
@@ -213,16 +226,19 @@ class UserTable extends _i1.Table {
 
   final name = _i1.ColumnString('name');
 
-  final email = _i1.ColumnString('email');
-
   final phone = _i1.ColumnInt('phone');
+
+  final userInfo = _i1.ColumnSerializable('userInfo');
+
+  final address = _i1.ColumnSerializable('address');
 
   @override
   List<_i1.Column> get columns => [
         id,
         name,
-        email,
         phone,
+        userInfo,
+        address,
       ];
 }
 

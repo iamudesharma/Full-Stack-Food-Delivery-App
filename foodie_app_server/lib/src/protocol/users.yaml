@@ -19,6 +19,10 @@ table: users
 # for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
 fields:
   name: String
-  email: String,
   phone: int,
+  userInfo: module:auth:UserInfo
+  address: List<Address>?
+  
+  
+
   

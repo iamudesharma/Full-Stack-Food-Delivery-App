@@ -13,7 +13,8 @@ import 'discount.dart' as _i3;
 import 'example.dart' as _i4;
 import 'product.dart' as _i5;
 import 'users.dart' as _i6;
-import 'package:serverpod_auth_client/module.dart' as _i7;
+import 'protocol.dart' as _i7;
+import 'package:serverpod_auth_client/module.dart' as _i8;
 export 'address.dart';
 export 'discount.dart';
 export 'example.dart';
@@ -69,8 +70,13 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i6.User?>()) {
       return (data != null ? _i6.User.fromJson(data, this) : null) as T;
     }
+    if (t == _i1.getType<List<_i7.Address>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i7.Address>(e)).toList()
+          : null) as dynamic;
+    }
     try {
-      return _i7.Protocol().deserialize<T>(data, t);
+      return _i8.Protocol().deserialize<T>(data, t);
     } catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -78,7 +84,7 @@ class Protocol extends _i1.SerializationManager {
   @override
   String? getClassNameForObject(Object data) {
     String? className;
-    className = _i7.Protocol().getClassNameForObject(data);
+    className = _i8.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -104,7 +110,7 @@ class Protocol extends _i1.SerializationManager {
   dynamic deserializeByClassName(Map<String, dynamic> data) {
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i7.Protocol().deserializeByClassName(data);
+      return _i8.Protocol().deserializeByClassName(data);
     }
     if (data['className'] == 'Address') {
       return deserialize<_i2.Address>(data['data']);

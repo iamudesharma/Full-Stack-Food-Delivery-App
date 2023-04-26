@@ -15,6 +15,7 @@ import 'discount.dart' as _i5;
 import 'example.dart' as _i6;
 import 'product.dart' as _i7;
 import 'users.dart' as _i8;
+import 'protocol.dart' as _i9;
 export 'address.dart';
 export 'discount.dart';
 export 'example.dart';
@@ -373,16 +374,22 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'String',
         ),
         _i2.ColumnDefinition(
-          name: 'email',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
           name: 'phone',
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userInfo',
+          columnType: _i2.ColumnType.json,
+          isNullable: false,
+          dartType: 'module:auth:UserInfo',
+        ),
+        _i2.ColumnDefinition(
+          name: 'address',
+          columnType: _i2.ColumnType.json,
+          isNullable: true,
+          dartType: 'List<protocol:Address>?',
         ),
       ],
       foreignKeys: [],
@@ -445,6 +452,11 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == _i1.getType<_i8.User?>()) {
       return (data != null ? _i8.User.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<List<_i9.Address>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i9.Address>(e)).toList()
+          : null) as dynamic;
     }
     try {
       return _i3.Protocol().deserialize<T>(data, t);
