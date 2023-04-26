@@ -9,11 +9,12 @@ library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixe
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'address.dart' as _i3;
-import 'discount.dart' as _i4;
-import 'example.dart' as _i5;
-import 'product.dart' as _i6;
-import 'users.dart' as _i7;
+import 'package:serverpod_auth_server/module.dart' as _i3;
+import 'address.dart' as _i4;
+import 'discount.dart' as _i5;
+import 'example.dart' as _i6;
+import 'product.dart' as _i7;
+import 'users.dart' as _i8;
 export 'address.dart';
 export 'discount.dart';
 export 'example.dart';
@@ -402,6 +403,7 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    ..._i3.Protocol.targetDatabaseDefinition.tables,
     ..._i2.Protocol.targetDatabaseDefinition.tables,
   ]);
 
@@ -414,36 +416,39 @@ class Protocol extends _i1.SerializationManagerServer {
     if (customConstructors.containsKey(t)) {
       return customConstructors[t]!(data, this) as T;
     }
-    if (t == _i3.Address) {
-      return _i3.Address.fromJson(data, this) as T;
+    if (t == _i4.Address) {
+      return _i4.Address.fromJson(data, this) as T;
     }
-    if (t == _i4.Discount) {
-      return _i4.Discount.fromJson(data, this) as T;
+    if (t == _i5.Discount) {
+      return _i5.Discount.fromJson(data, this) as T;
     }
-    if (t == _i5.Example) {
-      return _i5.Example.fromJson(data, this) as T;
+    if (t == _i6.Example) {
+      return _i6.Example.fromJson(data, this) as T;
     }
-    if (t == _i6.Product) {
-      return _i6.Product.fromJson(data, this) as T;
+    if (t == _i7.Product) {
+      return _i7.Product.fromJson(data, this) as T;
     }
-    if (t == _i7.User) {
-      return _i7.User.fromJson(data, this) as T;
+    if (t == _i8.User) {
+      return _i8.User.fromJson(data, this) as T;
     }
-    if (t == _i1.getType<_i3.Address?>()) {
-      return (data != null ? _i3.Address.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i4.Address?>()) {
+      return (data != null ? _i4.Address.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i4.Discount?>()) {
-      return (data != null ? _i4.Discount.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i5.Discount?>()) {
+      return (data != null ? _i5.Discount.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i5.Example?>()) {
-      return (data != null ? _i5.Example.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i6.Example?>()) {
+      return (data != null ? _i6.Example.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i6.Product?>()) {
-      return (data != null ? _i6.Product.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i7.Product?>()) {
+      return (data != null ? _i7.Product.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i7.User?>()) {
-      return (data != null ? _i7.User.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i8.User?>()) {
+      return (data != null ? _i8.User.fromJson(data, this) : null) as T;
     }
+    try {
+      return _i3.Protocol().deserialize<T>(data, t);
+    } catch (_) {}
     try {
       return _i2.Protocol().deserialize<T>(data, t);
     } catch (_) {}
@@ -452,19 +457,24 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i3.Address) {
+    String? className;
+    className = _i3.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
+    }
+    if (data is _i4.Address) {
       return 'Address';
     }
-    if (data is _i4.Discount) {
+    if (data is _i5.Discount) {
       return 'Discount';
     }
-    if (data is _i5.Example) {
+    if (data is _i6.Example) {
       return 'Example';
     }
-    if (data is _i6.Product) {
+    if (data is _i7.Product) {
       return 'Product';
     }
-    if (data is _i7.User) {
+    if (data is _i8.User) {
       return 'User';
     }
     return super.getClassNameForObject(data);
@@ -472,20 +482,24 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'].startsWith('serverpod_auth.')) {
+      data['className'] = data['className'].substring(15);
+      return _i3.Protocol().deserializeByClassName(data);
+    }
     if (data['className'] == 'Address') {
-      return deserialize<_i3.Address>(data['data']);
+      return deserialize<_i4.Address>(data['data']);
     }
     if (data['className'] == 'Discount') {
-      return deserialize<_i4.Discount>(data['data']);
+      return deserialize<_i5.Discount>(data['data']);
     }
     if (data['className'] == 'Example') {
-      return deserialize<_i5.Example>(data['data']);
+      return deserialize<_i6.Example>(data['data']);
     }
     if (data['className'] == 'Product') {
-      return deserialize<_i6.Product>(data['data']);
+      return deserialize<_i7.Product>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i7.User>(data['data']);
+      return deserialize<_i8.User>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -493,20 +507,26 @@ class Protocol extends _i1.SerializationManagerServer {
   @override
   _i1.Table? getTableForType(Type t) {
     {
+      var table = _i3.Protocol().getTableForType(t);
+      if (table != null) {
+        return table;
+      }
+    }
+    {
       var table = _i2.Protocol().getTableForType(t);
       if (table != null) {
         return table;
       }
     }
     switch (t) {
-      case _i3.Address:
-        return _i3.Address.t;
-      case _i4.Discount:
-        return _i4.Discount.t;
-      case _i6.Product:
-        return _i6.Product.t;
-      case _i7.User:
-        return _i7.User.t;
+      case _i4.Address:
+        return _i4.Address.t;
+      case _i5.Discount:
+        return _i5.Discount.t;
+      case _i7.Product:
+        return _i7.Product.t;
+      case _i8.User:
+        return _i8.User.t;
     }
     return null;
   }

@@ -13,6 +13,7 @@ import 'discount.dart' as _i3;
 import 'example.dart' as _i4;
 import 'product.dart' as _i5;
 import 'users.dart' as _i6;
+import 'package:serverpod_auth_client/module.dart' as _i7;
 export 'address.dart';
 export 'discount.dart';
 export 'example.dart';
@@ -68,11 +69,19 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i6.User?>()) {
       return (data != null ? _i6.User.fromJson(data, this) : null) as T;
     }
+    try {
+      return _i7.Protocol().deserialize<T>(data, t);
+    } catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
   @override
   String? getClassNameForObject(Object data) {
+    String? className;
+    className = _i7.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
+    }
     if (data is _i2.Address) {
       return 'Address';
     }
@@ -93,6 +102,10 @@ class Protocol extends _i1.SerializationManager {
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'].startsWith('serverpod_auth.')) {
+      data['className'] = data['className'].substring(15);
+      return _i7.Protocol().deserializeByClassName(data);
+    }
     if (data['className'] == 'Address') {
       return deserialize<_i2.Address>(data['data']);
     }
