@@ -1,15 +1,16 @@
 import 'dart:async';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:foodie_app_flutter/page/home_page.dart';
-import 'package:serverpod_auth_firebase_flutter/serverpod_auth_firebase_flutter.dart';
+// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:package_for_food_app/package_for_food_app.dart';
+import 'package:serverpod_auth_client/module.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
+import 'package:foodie_app_flutter/page/home_page.dart';
+
 import '../main.dart';
-import 'package:serverpod_auth_client/module.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});

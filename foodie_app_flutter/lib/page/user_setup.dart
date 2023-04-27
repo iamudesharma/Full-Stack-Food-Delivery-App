@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:package_for_food_app/package_for_food_app.dart';
 
 class UserSetupPage extends StatelessWidget {
   const UserSetupPage({super.key});
@@ -10,11 +11,13 @@ class UserSetupPage extends StatelessWidget {
         appBar: PlatformAppBar(
           title: Text('User Setup'),
         ),
-        body: const Center(
-          child: Text('User Setup Page'),
-        )
-    );
+        body: Column(
+          children: [
+            const Center(
+              child: Text('User Setup Page'),
+            ),
+            CustomTextFormFieldWidget(),
+          ],
+        ));
   }
 }
-
-
