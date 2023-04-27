@@ -69,7 +69,7 @@ class MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: sessionManager.isSignedIn
-            ? Text("User logged in")
+            ? const Text("User logged in")
             : Column(
                 children: [
                   SignInWithFirebaseButton(
@@ -85,3 +85,5 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
