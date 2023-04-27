@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:foodie_app_client/foodie_app_client.dart';
 import 'package:flutter/material.dart';
+import 'package:foodie_app_flutter/page/home_page.dart';
 import 'package:serverpod_auth_firebase_flutter/serverpod_auth_firebase_flutter.dart';
 import 'package:serverpod_auth_firebase_flutter/src/signin_button.dart';
 
@@ -37,12 +40,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Serverpod Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return PlatformApp(
+      localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+        DefaultMaterialLocalizations.delegate,
+        DefaultWidgetsLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+      ],
+      title: 'Foodie App',
+      material: (context, platform) => MaterialAppData(
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
       ),
-      home: const MyHomePage(title: 'Serverpod Example'),
+      cupertino: (context, platform) => CupertinoAppData(
+        theme: const CupertinoThemeData(
+          primaryColor: Colors.blue,
+        ),
+      ),
+      home: HomePage(),
     );
   }
 }
@@ -57,9 +72,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  // These fields hold the last result or error message that we've received from
-  // the server or null if no result exists yet.
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,5 +97,3 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
