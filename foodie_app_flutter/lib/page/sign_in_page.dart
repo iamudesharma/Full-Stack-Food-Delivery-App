@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:foodie_app_flutter/page/user_setup.dart';
 // import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:package_for_food_app/package_for_food_app.dart';
 import 'package:serverpod_auth_client/module.dart';
@@ -71,12 +73,22 @@ class _SignInPageState extends State<SignInPage> {
 
                 completer.complete(serverResponse.userInfo);
 
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(),
-                    ),
-                    (route) => false);
+                if (await client.users.checkUserExists()) {
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const UserSetupPage(),
+                      ),
+                      (route) => false);
+                } else {
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => const HomePage(),
+                      ),
+                      (route) => false);
+                }
+                // // ignore: use_build_context_synchronously
 
                 return;
               } catch (e) {

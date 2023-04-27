@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 // import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:foodie_app_flutter/main.dart';
 import 'package:foodie_app_flutter/page/sign_in_page.dart';
-
+import 'package:foodie_app_flutter/page/user_setup.dart';
 
 import 'package:package_for_food_app/package_for_food_app.dart';
 
@@ -16,11 +17,25 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    if (!sessionManager.isSignedIn) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const SignInPage()),
-          (route) => false);
+    if (mounted) {
+      Future.microtask(() async {
+        if (!sessionManager.isSignedIn) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const SignInPage()),
+              (route) => false);
+        } else {
+          if (!await client.users.checkUserExists()) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const UserSetupPage(),
+                ),
+                (route) => false);
+          }
+        }
+      });
     }
+
     super.initState();
   }
 
