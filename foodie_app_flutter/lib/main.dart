@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'package:foodie_app_client/foodie_app_client.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie_app_flutter/page/home_page.dart';
 import 'package:serverpod_auth_firebase_flutter/serverpod_auth_firebase_flutter.dart';
-
 
 import 'package:package_for_food_app/package_for_food_app.dart';
 
@@ -19,7 +22,8 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 // the default port. You will need to modify this to connect to staging or
 // production servers.
 
-var client = Client('http://10.0.2.2:8080/',
+var client = Client(
+    'http://${Platform.isAndroid ? "10.0.2.2" : "localhost"}:8080/',
     authenticationKeyManager: FlutterAuthenticationKeyManager())
   ..connectivityMonitor = FlutterConnectivityMonitor();
 
@@ -34,7 +38,25 @@ void main() async {
   await Firebase.initializeApp();
   await sessionManager.initialize();
 
+  configLoading();
+
   runApp(const MyApp());
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = false
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
@@ -43,7 +65,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlatformApp(
-      localizationsDelegates: <LocalizationsDelegate<dynamic>>[
+      builder: EasyLoading.init(),
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         DefaultMaterialLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
