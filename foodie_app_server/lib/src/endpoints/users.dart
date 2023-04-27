@@ -2,7 +2,9 @@ import 'package:foodie_app_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class UsersEndpoint extends Endpoint {
-  Future<bool> checkUserExists(Session session, String id) async {
+
+  
+  Future<bool> checkUserExists(Session session,) async {
     final id = await session.auth.authenticatedUserId;
 
     final user = await User.findById(session, id!);
