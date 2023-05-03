@@ -85,6 +85,7 @@ class _UserSetupPageState extends State<UserSetupPage> {
 
                     await EasyLoading.dismiss();
 
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (context) => const HomePage()),

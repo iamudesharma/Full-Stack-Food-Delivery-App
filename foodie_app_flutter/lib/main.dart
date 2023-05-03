@@ -74,15 +74,19 @@ class MyApp extends StatelessWidget {
       title: 'Foodie App',
       material: (context, platform) => MaterialAppData(
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            primaryColor: primaryColor,
+            primarySwatch: primaryColor,
+            scaffoldBackgroundColor: const Color(0xffEDEDED),
+            brightness: Brightness.light),
       ),
       cupertino: (context, platform) => CupertinoAppData(
         theme: const CupertinoThemeData(
-          primaryColor: Colors.blue,
+          primaryColor: primaryColor,
+          scaffoldBackgroundColor: Color(0xffEDEDED),
+          brightness: Brightness.light,
         ),
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -122,3 +126,20 @@ class MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+const primaryColor = MaterialColor(0xFFfa4a0c, {
+  50: Color(0xfffee9e2),
+  100: Color(0xfffec9b6),
+  200: Color(0xfffda586),
+  300: Color(0xfffc8055),
+  400: Color(0xfffb6530),
+  500: Color(0xfffa4a0c),
+  600: Color(0xfff9430a),
+  700: Color(0xfff93a08),
+  800: Color(0xfff83206),
+  900: Color(0xfff62203),
+  // A100: '#ffffff',
+  // A200: '#ffecea',
+  // A400: '#ffbdb7',
+  // A700: '#ffa69d',
+});
