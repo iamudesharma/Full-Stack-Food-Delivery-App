@@ -50,6 +50,12 @@ class _EndpointUsers extends _i1.EndpointRef {
         'deleteUsers',
         {'user': user},
       );
+
+  _i2.Future<_i3.User?> getUser() => caller.callServerEndpoint<_i3.User?>(
+        'users',
+        'getUser',
+        {},
+      );
 }
 
 class _Modules {
