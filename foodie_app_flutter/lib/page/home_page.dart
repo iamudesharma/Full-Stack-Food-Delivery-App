@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:foodie_app_client/foodie_app_client.dart';
 // import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -64,20 +65,20 @@ class _HomePageState extends State<HomePage> {
               elevation: 0.0,
               currentIndex: 0,
               items: [
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
+                BottomNavigationBarItem(
+                  icon: Icon(PlatformIcons(context).home),
                   label: 'Home',
                 ),
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border),
+                BottomNavigationBarItem(
+                  icon: Icon(PlatformIcons(context).favoriteOutline),
                   label: 'fav',
                 ),
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.restore_rounded),
                   label: 'Home',
                 ),
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
+                BottomNavigationBarItem(
+                  icon: Icon(PlatformIcons(context).search),
                   label: 'Search',
                 ),
               ]),
@@ -98,9 +99,46 @@ class _HomePageState extends State<HomePage> {
                 ]),
               ),
             ),
-
-
-            SliverToBoxAdapter(child: PlatformText("De"),)
+            SliverPadding(
+              padding: const EdgeInsets.all(15),
+              sliver: SliverToBoxAdapter(
+                child: DefaultTextStyle(
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      PlatformText("Delicious").animate().slideX(),
+                      PlatformText("Food for you").animate().slideX(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Container(
+                decoration: BoxDecoration(
+                  backgroundBlendMode: BlendMode.saturation,
+                  border: Border.all(
+                    color: Colors.grey.withOpacity(0.5),
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  color: const Color(0xffEFEEEE),
+                ),
+                height: 50,
+                // width: 200,
+                margin: EdgeInsets.symmetric(horizontal: 25),
+                child: Row(mainAxisSize: MainAxisSize.min, children: [
+                  const SizedBox(width: 10),
+                  Icon(PlatformIcons(context).search),
+                  const SizedBox(width: 10),
+                  PlatformText("Search"),
+                ]),
+              ),
+            )
           ]),
         ),
       ),
