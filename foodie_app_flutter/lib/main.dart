@@ -9,6 +9,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:foodie_app_client/foodie_app_client.dart';
 import 'package:flutter/material.dart';
 import 'package:foodie_app_flutter/page/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:serverpod_auth_firebase_flutter/serverpod_auth_firebase_flutter.dart';
 
 import 'package:package_for_food_app/package_for_food_app.dart';
@@ -76,6 +77,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             primaryColor: primaryColor,
             primarySwatch: primaryColor,
+            textTheme: GoogleFonts.poppinsTextTheme(
+              Theme.of(context).textTheme,
+            ),
             scaffoldBackgroundColor: const Color(0xffEDEDED),
             brightness: Brightness.light),
       ),
