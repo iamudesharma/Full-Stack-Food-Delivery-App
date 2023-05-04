@@ -57,8 +57,81 @@ class _HomePageState extends State<HomePage> {
     return ValueListenableBuilder<User?>(
       valueListenable: user,
       builder: (context, value, child) => AdvancedDrawer(
+        openScale: 0.8,
+        backdropColor: Theme.of(context).primaryColor,
         controller: _advancedDrawerController,
-        drawer: Container(),
+        drawer: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Spacer(),
+            Spacer(),
+            ListTile(
+              leading: Icon(
+                PlatformIcons(context).person,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Profile",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.card_travel,
+                color: Colors.white,
+              ),
+              title: Text(
+                "orders",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "offer and promos",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "privacy policy",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Spacer(),
+            Spacer(),
+            ListTile(
+              leading: Icon(
+                PlatformIcons(context).settings,
+                color: Colors.white,
+              ),
+              title: Text(
+                "logout",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Spacer(),
+          ],
+        ),
         child: PlatformScaffold(
           bottomNavBar: PlatformNavBar(
             material: (context, platform) => MaterialNavBarData(
