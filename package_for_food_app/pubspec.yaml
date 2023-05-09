@@ -11,6 +11,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_platform_widgets: ^3.3.1
+  serverpod_auth_shared_flutter: ^1.1.0
+  serverpod_auth_firebase_flutter: ^1.1.0
+  firebase_ui_auth: ^1.2.2
+  serverpod_flutter: ^1.1.0
+  foodie_app_client:
+    path: ../foodie_app_client
 
 dev_dependencies:
   flutter_test:
