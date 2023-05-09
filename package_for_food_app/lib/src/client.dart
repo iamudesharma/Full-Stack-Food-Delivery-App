@@ -12,8 +12,8 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 // import 'package:s';
 
-class ServerPodClient {
-  ServerPodClient._() {
+class ServerPodClientApp {
+  ServerPodClientApp._() {
     client = Client(
         'http://${Platform.isAndroid ? "10.0.2.2" : "localhost"}:8080/',
         authenticationKeyManager: FlutterAuthenticationKeyManager())
@@ -22,14 +22,13 @@ class ServerPodClient {
     sessionManager = sessionManager = SessionManager(
       caller: client.modules.auth,
     );
-    _sessionInit();
   }
 
   static late Client client;
 
   static late SessionManager sessionManager;
 
-  static _sessionInit() async {
-    await sessionManager.initialize();
+  static Future<bool> sessionInit() async {
+    return await sessionManager.initialize();
   }
 }
