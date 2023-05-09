@@ -41,6 +41,11 @@ dependencies:
 
   serverpod_auth_shared_flutter: ^1.1.0
   serverpod_auth_firebase_flutter: ^1.1.0  
+  flutter_easyloading: ^3.0.5
+  flutter_platform_widgets: ^3.3.2
+  package_for_food_app:
+    path: ../package_for_food_app
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

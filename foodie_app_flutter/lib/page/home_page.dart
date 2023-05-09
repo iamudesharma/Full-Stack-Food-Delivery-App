@@ -234,7 +234,9 @@ class _HomePageState extends State<HomePage> {
                     PlatformText("Search"),
                   ]),
                 ),
-              )
+              ),
+SliverToBoxAdapter(child: Container(),)
+
             ]),
           ),
         ),
